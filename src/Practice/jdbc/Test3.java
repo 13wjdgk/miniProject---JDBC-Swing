@@ -1,6 +1,6 @@
 package Practice.jdbc;
 
-import static Practice.jdbc.DBManager.*;
+import static Practice.jdbc.DBManagerForPractice.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,19 +14,10 @@ public class Test3 {
 
 
 	public static void main(String[] args)  {
-		//insertCustomer(263,"손흥민","영국 토트넘","010-0000-0000");
-		//updateCustomer(263,"한국 서울");
 		List<CustomerDto> list = listCustomer();
 		for(CustomerDto dto : list) {
 			System.out.println(dto.getCustId() + " " + dto.getName() + " " + dto.getAddress() + " " + dto.getPhone());
 		}
-		//delete
-		// String selectSql = "delete from customer where custid = 262";
-		// int rs = stmt.executeUpdate(selectSql);
-		// System.out.println(rs);
-		//
-		// stmt.close();
-		// conn.close();
 
 	}
 	static int insertCustomer(int custid,String name,String address,String phone) {

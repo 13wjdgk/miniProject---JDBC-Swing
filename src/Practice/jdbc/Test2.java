@@ -1,6 +1,6 @@
 package Practice.jdbc;
 
-import static Practice.jdbc.DBManager.*;
+import static Practice.jdbc.DBManagerForPractice.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,19 +13,9 @@ public class Test2 {
 
 
 	public static void main(String[] args)  {
-		//insertCustomer();
-		//updateCustomer();
-		//selectList();
-		//selectDetail();
+
 		deleteCustomer();
 
-		//delete
-		// String selectSql = "delete from customer where custid = 262";
-		// int rs = stmt.executeUpdate(selectSql);
-		// System.out.println(rs);
-		//
-		// stmt.close();
-		// conn.close();
 
 	}
 	static void insertCustomer() {

@@ -1,6 +1,6 @@
 package Practice.jdbc;
 
-import static Practice.jdbc.DBManager.*;
+import static Practice.jdbc.DBManagerForPractice.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class Test4 {
 		Connection conn = null;
 		int ret = 1;
 		try {
-			conn = DBManager.getConnection();
+			conn = DBManagerForPractice.getConnection();
 			String insertSql = "insert into customer values(?,?,?,?);";
 			pstmt = conn.prepareStatement(insertSql);
 			pstmt.setInt(1, custid);
@@ -47,7 +47,7 @@ public class Test4 {
 		Connection conn = null;
 		int ret = 1;
 		try {
-			conn = DBManager.getConnection();
+			conn = DBManagerForPractice.getConnection();
 			String updateSql = "update customer set address = ? where custid = ?";
 			pstmt = conn.prepareStatement(updateSql);
 			pstmt.setInt(2, dto.getCustId());
@@ -71,7 +71,7 @@ public class Test4 {
 		ResultSet rs = null;
 		List<CustomerDto> list = new ArrayList<>();
 		try {
-			conn = DBManager.getConnection();
+			conn = DBManagerForPractice.getConnection();
 			String selectSql = "select * from customer";
 			pstmt = conn.prepareStatement(selectSql);
 
@@ -102,7 +102,7 @@ public class Test4 {
 		ResultSet rs = null;
 		CustomerDto dto = new CustomerDto();
 		try {
-			conn = DBManager.getConnection();
+			conn = DBManagerForPractice.getConnection();
 			String selectSql = "select * from customer where custid = ?";
 			pstmt = conn.prepareStatement(selectSql);
 			pstmt.setInt(1, custid);
@@ -131,7 +131,7 @@ public class Test4 {
 		String deleteSql = "delete from customer where custid = ?; "; // ? 는 value 로 대체되어야 하는 항목
 		int ret = -1;
 		// try with authoClose
-		try(Connection con = DBManager.getConnection();
+		try(Connection con = DBManagerForPractice.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(deleteSql);){
 
 			pstmt.setInt(1, custId);

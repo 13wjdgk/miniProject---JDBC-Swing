@@ -1,15 +1,13 @@
-package Practice.jdbc;
+package MiniProject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//Connection 객체를 생성, 전달
-//ResultSet ,  객체 종료 close()
-public class DBManager {
-	static String url = "Practice.jdbc:mysql://localhost:3306/madangdb";
+public class DBMannager {
+	static String url = "jdbc:mysql://localhost:3306/Baemin";
 	static String user = "root";
-	static String password = "GEU1224kk!";
+	static String password = "pwd";
 
 	public static Connection getConnection(){
 		Connection conn = null;

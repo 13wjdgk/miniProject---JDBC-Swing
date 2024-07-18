@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Practice.jdbc.DBManager;
+import Practice.jdbc.DBManagerForPractice;
 import Practice.swingBook.dto.Book;
 
 // book table 에 대한 crud
@@ -21,7 +21,7 @@ public class BookDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1, book.getBookId());
@@ -34,7 +34,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return ret;
@@ -48,7 +48,7 @@ public class BookDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, book.getBookName());
 			pstmt.setString(2, book.getPublisher());
@@ -60,7 +60,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return ret;
@@ -74,7 +74,7 @@ public class BookDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, bookId);
 
@@ -83,7 +83,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return ret;
@@ -99,7 +99,7 @@ public class BookDao {
 		ResultSet rs = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -115,7 +115,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return list;
@@ -130,7 +130,7 @@ public class BookDao {
 		ResultSet rs = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%"+searchWord+"%");
 			rs = pstmt.executeQuery();
@@ -146,7 +146,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return list;
@@ -162,7 +162,7 @@ public class BookDao {
 		ResultSet rs = null;
 
 		try {
-			con = DBManager.getConnection();
+			con = DBManagerForPractice.getConnection();
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1, bookId);
@@ -179,7 +179,7 @@ public class BookDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.releaseConnection(pstmt, con);
+			DBManagerForPractice.releaseConnection(pstmt, con);
 		}
 
 		return book;
