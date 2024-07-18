@@ -18,31 +18,36 @@ import MiniProject.client.dto.User;
 
 public class ClientMain extends JFrame {
 
-	private String userEmail;
+	private User user;
 	private static UserDao userDao = new UserDao();
 	private static StoreDao storeDao = new StoreDao();
 	private JTable storeTable;
 	private DefaultTableModel tableModel;
 
 	public ClientMain(User user) {
-		this.userEmail = user.getEmail();
+		this.user = user;
 		initializeUI();
 	}
 
 	private void initializeUI() {
-		setTitle("UPlus 배달의 민족 - " + userEmail);
+		setTitle("UPlus 배달의 민족 - " + user.getEmail());
 		setSize(600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// 예시로 기본적인 UI 요소 추가
-		JLabel welcomeLabel = new JLabel("<html>환영합니다 ," + userEmail + "님!<br>어떤 음식을 주문하시겠어요?</html>");
+		JLabel welcomeLabel = new JLabel("<html>환영합니다 ," + user.getEmail() + "님!<br>어떤 음식을 주문하시겠어요?</html>");
 
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(welcomeLabel, BorderLayout.CENTER);
 
 		// 테이블 모델과 테이블 생성
 		String[] columnNames = {"ID", "이름", "주소"};
-		tableModel = new DefaultTableModel(columnNames, 0);
+		tableModel = new DefaultTableModel(columnNames, 0){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		storeTable = new JTable(tableModel);
 		storeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(storeTable);
@@ -59,17 +64,11 @@ public class ClientMain extends JFrame {
 		storeTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
 				int selectedRow = storeTable.getSelectedRow();
 				if (selectedRow != -1) {
-					int storeId = (int) storeTable.getValueAt(selectedRow, 0);
-					String name = (String) storeTable.getValueAt(selectedRow, 1);
-					String address = (String) storeTable.getValueAt(selectedRow, 2);
-
-					JOptionPane.showMessageDialog(ClientMain.this,
-						"선택된 가게 정보:\nID: " + storeId +
-							"\n이름: " + name +
-							"\n주소: " + address,
-						"가게 정보", JOptionPane.INFORMATION_MESSAGE);
+					int storeId = (int)storeTable.getValueAt(selectedRow, 0);
+					StoreDetailDialog dialog = new StoreDetailDialog(ClientMain.this , storeId,user);
 				}
 			}
 		});
