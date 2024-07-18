@@ -13,16 +13,18 @@ import javax.swing.table.DefaultTableModel;
 
 import MiniProject.client.dao.StoreDao;
 import MiniProject.client.dao.UserDao;
+import MiniProject.client.dto.CartList;
 import MiniProject.client.dto.StoreDTO;
 import MiniProject.client.dto.User;
 
 public class ClientMain extends JFrame {
-
+	public static CartList cart ;
 	private User user;
 	private static UserDao userDao = new UserDao();
 	private static StoreDao storeDao = new StoreDao();
 	private JTable storeTable;
 	private DefaultTableModel tableModel;
+
 
 	public ClientMain(User user) {
 		this.user = user;
@@ -72,12 +74,27 @@ public class ClientMain extends JFrame {
 				}
 			}
 		});
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+		JButton cartButton = new JButton("장바구니");
+		JButton myPageButton = new JButton("마이페이지");
+		JButton orderHistoryButton = new JButton("주문내역");
+
+		buttonPanel.add(cartButton);
+		buttonPanel.add(myPageButton);
+		buttonPanel.add(orderHistoryButton);
+
+		cartButton.addActionListener(e -> {
+			CartDialog cartDialog = new CartDialog(ClientMain.this, user);
+		});
+		add(buttonPanel, BorderLayout.SOUTH);
 		setVisible(true);
 	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
+			cart = new CartList();
 			// 첫 화면으로 이메일 입력 다이얼로그를 띄우기
 			String email = JOptionPane.showInputDialog(null, "이메일을 입력하세요:", "이메일 입력", JOptionPane.PLAIN_MESSAGE);
 
