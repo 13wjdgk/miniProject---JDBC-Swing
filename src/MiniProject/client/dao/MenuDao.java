@@ -52,7 +52,7 @@ public class MenuDao {
 	}
 	public MenuDTO findMenuByStoreIdAndName( int storeId , String name) {
 		//Menu 테이블과 , MenuCommonCode 조인
-		String sql = "select menu_id,store_id,M.name,price,  C.name as category,spice,amount from menu M join MenuCommonCode C on M.category=C.codeId   where store_id = ? and M.name = ?; ";
+		String sql = "select menu_id,store_id,M.name as menu_name ,price,  C.name as category,spice,amount from menu M join MenuCommonCode C on M.category=C.codeId   where store_id = ? and M.name = ?; ";
 		MenuDTO menu = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -68,7 +68,7 @@ public class MenuDao {
 			if(rs.next()) {
 				menu = new MenuDTO();
 				menu.setMenuId(rs.getInt("menu_id"));
-				menu.setName(rs.getString("name"));
+				menu.setName(rs.getString("menu_name"));
 				menu.setPrice(rs.getBigDecimal("price"));
 				menu.setStoreId(rs.getInt("store_id"));
 				menu.setCategory(rs.getString("category"));

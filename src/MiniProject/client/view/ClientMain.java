@@ -88,6 +88,9 @@ public class ClientMain extends JFrame {
 		cartButton.addActionListener(e -> {
 			CartDialog cartDialog = new CartDialog(ClientMain.this, user);
 		});
+		orderHistoryButton.addActionListener(e -> {
+			OrderHistoryDialog orderHistoryDialog = new OrderHistoryDialog(ClientMain.this, user);
+		});
 		add(buttonPanel, BorderLayout.SOUTH);
 		setVisible(true);
 	}

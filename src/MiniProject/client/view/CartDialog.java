@@ -50,13 +50,19 @@ public class CartDialog extends JFrame {
 		removeButton = new JButton("선택 항목 제거");
 		checkoutButton = new JButton("주문하기");
 
-		removeButton.addActionListener(e -> removeSelectedItem());
+		removeButton.addActionListener(e -> {
+			removeSelectedItem();
+			if(cart.getCartList().size() == 0) {
+				cart.clearCart();
+			}
+		});
+
 		checkoutButton.addActionListener(e -> {
 			List<CartItem> list = cart.getCartList();
 			int totalPrice = Arrays.stream(list.toArray())
 				.mapToInt(item -> ((CartItem) item).getPrice().intValue()*((CartItem) item).getQuantity())
 				.sum();
-			checkout(user.getUserId(), 1, totalPrice, list);
+			checkout(user.getUserId(), cart.getStoreId(), totalPrice, list);
 
 		});
 
@@ -97,9 +103,10 @@ public class CartDialog extends JFrame {
 		int orderId = orderDao.insertOrder(userId, storeId, totalPrice, saveTime,cartItems);
 		// 주문 처리 로직 추가
 		if(orderId > 0){
+
 			if(orderDao.insertOderItems(orderId,userId, storeId, totalPrice, saveTime, cartItems)){
 				JOptionPane.showMessageDialog(this, "주문이 완료되었습니다.");
-				cart.getCartList().clear();
+				cart.clearCart();
 				tableModel.setRowCount(0);
 				return;
 			}

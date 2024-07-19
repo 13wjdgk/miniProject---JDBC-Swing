@@ -23,7 +23,6 @@ public class CartItem {
 		this.spiceName = spiceName;
 	}
 	public CartItem( MenuDTO menu, int quantity, String amountName, String spiceName, Integer amount, Integer spice) {
-		System.out.println("getMenuId - CarItem : "+ menu.getMenuId());
 		this.menuId = menu.getMenuId();
 		this.menuName = menu.getName();
 		this.quantity = quantity;
@@ -32,6 +31,10 @@ public class CartItem {
 		this.amount = amount;
 		this.amountName = amountName;
 		this.spiceName = spiceName;
+	}
+
+	public CartItem() {
+
 	}
 
 	public int getMenuId() {
@@ -44,6 +47,9 @@ public class CartItem {
 
 	public String getMenuName() {
 		return menuName;
+	}
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
 
 	public void setMenuId(String menuName) {
@@ -101,7 +107,7 @@ public class CartItem {
 
 	@Override
 	public String toString() {
-		return "OrderItemDTO{" +
+		return "CartItem{" +
 			", menuId=" + menuId +
 			", quantity=" + quantity +
 			", price=" + price +

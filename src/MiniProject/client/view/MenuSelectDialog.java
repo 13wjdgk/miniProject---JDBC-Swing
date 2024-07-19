@@ -36,13 +36,15 @@ public class MenuSelectDialog extends JDialog {
 		MenuDTO menu = getMenuDetail(storeId,menuName);
 		JLabel nameLabel = new JLabel("메뉴 이름: " + menu.getName());
 		JLabel addressLabel = new JLabel("메뉴 가격: " + menu.getPrice());
-		JLabel spiceLabel = new JLabel("매운정도: " + menu.getSpice());
+
 
 		infoPanel.add(nameLabel);
 		infoPanel.add(addressLabel);
-		infoPanel.add(spiceLabel);
+
 
 		if(menu.getSpice() != null) {
+			JLabel spiceLabel = new JLabel("맵기 선택 ");
+			infoPanel.add(spiceLabel);
 			List<MenuCommonCodeDTO> options = getSpiceOptions(menu.getSpice());
 			spiceRadioButtons = new JRadioButton[options.size()];
 			spiceButtonGroup = new ButtonGroup();
@@ -61,8 +63,8 @@ public class MenuSelectDialog extends JDialog {
 			}
 		}
 		if(menu.getAmount() != null) {
-			JLabel amountLabel = new JLabel("사이즈: " + menu.getAmount());
-			List<MenuCommonCodeDTO> options = getSpiceOptions(menu.getAmount());
+			JLabel amountLabel = new JLabel("사이즈 선택 ");
+			List<MenuCommonCodeDTO> options = getAmountOptions(menu.getAmount());
 			infoPanel.add(amountLabel);
 			amountRadioButtons = new JRadioButton[options.size()];
 			amountButtonGroup = new ButtonGroup();
@@ -97,11 +99,12 @@ public class MenuSelectDialog extends JDialog {
 			}
 
 			// 선택된 옵션 코드를 이용해 DB에 저장
-			cart.saveItem(new CartItem(menu,1,amount ,spice, amount!=null?amountMap.get(amount):null,spice!=null?spiceMap.get(spice):null));
-			JOptionPane.showMessageDialog(this, "장바구니에 담겼습니다.");
-			for (CartItem item : cart.getCartList()) {
-				System.out.println(item.toString());
+			if(!cart.saveItem(new CartItem(menu,1,amount ,spice, amount!=null?amountMap.get(amount):null,spice!=null?spiceMap.get(spice):null),storeId)){
+				JOptionPane.showMessageDialog(this, "장바구니에 담긴 다른 가게 메뉴를 제거해 주세요");
+				return;
 			}
+			JOptionPane.showMessageDialog(this, "장바구니에 담겼습니다.");
+
 			dispose();
 		});
 		getContentPane().add(infoPanel, BorderLayout.NORTH);
